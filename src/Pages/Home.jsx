@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategoriesWithMovies } from '../Store/categoryWithMovieSlice';
+
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -12,26 +11,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 const Home = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const categoriesWithMovies = useSelector((state) => state.categoriesWithMovies.items);
-  const categoryStatus = useSelector((state) => state.categoriesWithMovies.status);
-
-  useEffect(() => {
-    if (categoryStatus === 'idle') {
-      dispatch(fetchCategoriesWithMovies());
-    }
-  }, [categoryStatus, dispatch]);
-
-  if (categoryStatus === 'loading') {
-    return <div>Loading...</div>;
-  }
-  if (categoryStatus === 'error') {
-    return <div>Error fetching categories with movies.</div>;
-  }
-  if (categoriesWithMovies.length === 0) {
-    return <div>No categories with movies found.</div>;
-  }
 
   const handleWatchTrailer = (trailerLink) => {
     window.open(trailerLink, '_blank');
