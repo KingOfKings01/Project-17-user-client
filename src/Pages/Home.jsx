@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategoriesWithMovies } from '../Store/categoryWithMovieSlice';
+import { useNavigate } from 'react-router-dom';
 
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,6 +13,7 @@ import 'swiper/css/scrollbar';
 
 const Home = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const categoriesWithMovies = useSelector((state) => state.categoriesWithMovies.items);
   const categoryStatus = useSelector((state) => state.categoriesWithMovies.status);
 
@@ -30,6 +32,14 @@ const Home = () => {
   if (categoriesWithMovies.length === 0) {
     return <div>No categories with movies found.</div>;
   }
+
+  const handleWatchTrailer = (trailerLink) => {
+    window.open(trailerLink, '_blank');
+  };
+
+  const handleDetailsPage = (movieId) => {
+    navigate(`/movies/${movieId}`);
+  };
 
   return (
     <div>
@@ -55,6 +65,20 @@ const Home = () => {
                 <div className="absolute bottom-20 left-20 bg-opacity-75 bg-gray-800 p-4 text-white rounded-md">
                   <h1 className="text-4xl font-bold">{movie.name}</h1>
                   <p className="mt-2">{movie.description}</p>
+                  <div className="mt-4">
+                    <button
+                      onClick={() => handleWatchTrailer(movie.trailerLink)}
+                      className="bg-blue-500 text-white py-1 px-2 rounded mr-2"
+                    >
+                      Watch Trailer
+                    </button>
+                    <button
+                      onClick={() => handleDetailsPage(movie.id)}
+                      className="bg-green-500 text-white py-1 px-2 rounded"
+                    >
+                      Details Page
+                    </button>
+                  </div>
                 </div>
               </div>
             </SwiperSlide>
@@ -71,6 +95,20 @@ const Home = () => {
                 <img src={movie.poster} alt={movie.name} className="mb-2" />
                 <h3 className="text-lg font-bold">{movie.name}</h3>
                 <p>{movie.description}</p>
+                <div className="mt-4">
+                  <button
+                    onClick={() => handleWatchTrailer(movie.trailerLink)}
+                    className="bg-blue-500 text-white py-1 px-2 rounded mr-2"
+                  >
+                    Watch Trailer
+                  </button>
+                  <button
+                    onClick={() => handleDetailsPage(movie.id)}
+                    className="bg-green-500 text-white py-1 px-2 rounded"
+                  >
+                    Details Page
+                  </button>
+                </div>
               </div>
             )) : (
               <div className="text-center">

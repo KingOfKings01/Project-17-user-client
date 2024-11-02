@@ -17,3 +17,8 @@ ul{
   list-style: none;
 }
 
+footer{
+  a{
+    color: #ffffff;
+  }
+}
