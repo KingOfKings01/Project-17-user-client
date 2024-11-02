@@ -60,7 +60,7 @@ const MovieDetail = () => {
 
 
             </div>
-            <h2 className="mt-8 text-xl font-bold">Showtimes</h2>
+            <h2 className="mt-8 text-xl font-bold">Book Your Ticket Now</h2>
             <div className="mt-4">
                 {movie.showtimes.length > 0 ? (
                     movie.showtimes.map((showtime) => (
